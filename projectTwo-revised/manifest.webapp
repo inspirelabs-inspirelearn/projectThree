@@ -1,6 +1,6 @@
 {
   "name": "Inspire Learn",
-   "version": "0.3.5",
+   "version": "0.3.8",
   "description": "Offline elearning for secondary school students",
   "subtitle": "offline elearning",
   "launch_path": "/index.html",
@@ -18,7 +18,7 @@
     "url": "http://www.MyWebsite.me"
   },
   "permissions": {
-  "device-storage:music":{
+  "device-storage:sdcard":{
     "access": "readonly",
     "description":"Required to access media files"
   }
