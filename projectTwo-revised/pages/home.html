@@ -98,26 +98,26 @@
     <!-- <script src="../load.js"></script> -->
   </head>
   <body style="overflow:hidden" id="homePage_page">
-      <div data-role="page" id="views" style="background: rgba(248, 248, 248, 0.966);">
+      <div data-role="page" id="views" data_gotoHome="home">
 
-            <div class="view" style="width:100%;position:fixed;top:0;z-index:3;background: rgb(252, 252, 252);">
+            <div class="view" style="width:100%;position:fixed;top:0;z-index:3;">
                     <div class="" id="viewGrid">
 
-                            <div data-role="header" data-position="fixed" id="generatedGrid" class="grid">
-                                    <div class="navItem" id="home" tabindex="0" data-gotoHome="goHome" style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
+                            <div data-role="header" data-position="fixed" id="generatedGrid" data-gotToViewId="home" class="grid">
+                                    <div class="navItemHorizontal" id="home" tabindex="0" data-gotoHome="goHome" style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
                                         <a ><img class="" style="height:27px;width:27px;" src="../img/home_not_active.png" /></a>
                                     </div>
-                                    <div class="navItem" id="wisdom" tabindex="1"  style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
+                                    <div class="navItemHorizontal" id="wisdom" tabindex="1"  style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
                                         <a><img style="height:27px;width:27px;" src="../img/hat.png" /></a>
                                     </div>
-                                    <div class="navItem" id="study" tabindex="2"  style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
+                                    <div class="navItemHorizontal" id="study" tabindex="2"  style="width: 33.33%;text-align:center;border:1px solid #BAAAAA" >
                                         <a><img style="height:27px;width:27px;" src="../img/study.png" /></a>
                                     </div>
 
                             </div>
                     </div>
                     <br><br>
-                    <div id="results" ></div>
+                    <div id="results"></div>
             </div>
     </div>
 
