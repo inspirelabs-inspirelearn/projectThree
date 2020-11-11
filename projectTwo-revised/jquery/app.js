@@ -4,18 +4,22 @@ var MODULE = (function () {
   // use the custom module namespace 'app' for all variables and functions you need to access through other scripts
   app.views = new Array();
   app.activeNavItem = null;
+
+  app.activeNavItemHorizontal = null; //for horizontal scrolling
   app.currentView = null;
   app.currentViewID = 0;
   app.currentViewName = '';
   app.prevViewId = 0;
-  app.currentNavId = 0;
+  app.currentNavId = 10;
+  app.currentNavIdHorizontal = 0; //for horizontal scrolling
   app.navItems = new Array();
+  app.hozIndex= 0;
+  app.backEnabled = true;
+  app.horizontalScroll = true; //will deny to accept enter key strokes when horizontal navigation is on
+  // app.optionEnabled = false;
+  // app.fullAdVisible = false;
 
-  app.backEnabled = false;
-  app.optionEnabled = false;
-  app.fullAdVisible = false;
-
-  app.optionButtonAction = '';
+  // app.optionButtonAction = '';
 
   // app.backButton = document.getElementById("bar-back");
   // app.actionButton = document.getElementById("bar-action");
@@ -41,13 +45,15 @@ var MODULE = (function () {
     var viewRoot = document.getElementById("views");
     app.views = viewRoot.querySelectorAll('.view');
     // load first view
+    // console.log(app.views);
+    app.horizontalScroll =false; //horizontal scrolling disbaled sto suppeort on enter event
     showView(0);
     initView();
   });
 
   // vertical navigation in increments of 10
   function navVertical(forward) {
-    if (!app.isInputFocused() && !app.fullAdVisible) {
+    app.horizontalScroll = false; //allow enter button to execute procedures of the vertical indexes when pressed
       app.updateNavItems();
       // jump to tabIndex
       var next = app.currentNavId;
@@ -95,25 +101,28 @@ var MODULE = (function () {
           }
         }
       }
-    }
+
   };
 
   // horizontal navigation in increments of 1
   function navHorizontal(forward) {
-    if (!app.isInputFocused() && !app.fullAdVisible) {
-      app.updateNavItems();
+    var currentlocation=window.location.pathname; //for assisting horizontal navigation and enter event procdeures
+    currentlocation=currentlocation.substring(currentlocation.lastIndexOf('/') + 1);
+    if(currentlocation == "home.html"){ //if the screen the homepage for horizontal scrolling
+      app.horizontalScroll = true; //will prevent from accepting the enter keystroke
+      app.updateNavItemsHorizontal();
       // jump to array index for continuous horizontal navigation
-      var currentTabIndex = app.currentNavId;
-      for (var i = 0; i < app.navItems.length; i++) {
-        if (getNavTabIndex(i) == currentTabIndex) {
+      var currentTabIndex = app.currentNavIdHorizontal;
+      for (var i = 0; i < app.navItemsHorizontal.length; i++) {
+        if (getNavTabIndexHorizontal(i) == currentTabIndex) {
           var next = i;
           next += forward ? 1 : -1;
-          if (next >= app.navItems.length) {
+          if (next >= app.navItemsHorizontal.length) {
             next = 0;
           } else if (next < 0) {
-            next = app.navItems.length - 1;
+            next = app.navItemsHorizontal.length - 1;
           }
-          focusActiveButton(app.navItems[next]);
+          focusActiveButtonHorizontal(app.navItemsHorizontal[next]);
           break;
         }
       }
@@ -124,12 +133,16 @@ var MODULE = (function () {
     return parseInt(app.navItems[i].getAttribute('tabIndex'));
   };
 
+  function getNavTabIndexHorizontal(i) {
+    return parseInt(app.navItemsHorizontal[i].getAttribute('tabIndex'));
+  };
+
   function focusActiveButton(element) {
     app.activeNavItem = element;
     app.currentNavId = parseInt(app.activeNavItem.getAttribute('tabIndex'));
 
     // scroll to top
-    if (app.currentNavId == 0) {
+    if (app.currentNavId == 10) {
       try {
         app.currentView.scrollTo(0, 0);
       } catch (e) { }
@@ -140,8 +153,29 @@ var MODULE = (function () {
 
     app.activeNavItem.focus();
     // update softkeys
-    softkeyBar();
+    // softkeyBar();
   };
+
+  function focusActiveButtonHorizontal(element) {
+    app.activeNavItemHorizontal = element;
+    app.currentNavIdHorizontal = parseInt(app.activeNavItemHorizontal.getAttribute('tabIndex'));
+    // app.currentNavItemHorizontal
+
+    // scroll to top
+    if (app.currentNavIdHorizontal == 0) {
+      try {
+        app.currentView.scrollTo(0, 0);
+      } catch (e) { }
+    } else {
+      // smooth scrolling into view
+      app.activeNavItemHorizontal.scrollIntoView({ behavior: "smooth" });
+    }
+
+    app.activeNavItemHorizontal.focus();
+    // update softkeys
+    // softkeyBar();
+  };
+
 
   app.getActiveNavItemIndex = function () {
     for (var i = 0; i < app.navItems.length; i++) {
@@ -162,16 +196,13 @@ var MODULE = (function () {
 
   // decide, what the enter button does, based on the active element
   function execute() {
-    if (!app.fullAdVisible) {
-      if (!app.isInputFocused()) { /* NOT in some input field */
+    if(!app.horizontalScroll){
         if (app.activeNavItem.getAttribute('data-gotToViewId')) {
           showView(app.activeNavItem.getAttribute('data-gotToViewId'));
           initView();
-        } else if (app.activeNavItem.getAttribute('data-gotToViewName')) {
-          showViewByName(app.activeNavItem.getAttribute('data-gotToViewName'));
+        } else if (app.activeNavItem.getAttribute('gotoModule')) {
+          showViewByName(app.activeNavItem.getAttribute('data_gotoHome'));
           initView();
-        } else if (app.activeNavItem.getAttribute('data-href')) {
-          openURL(app.activeNavItem.getAttribute('data-href'));
         }
         else if (app.activeNavItem.getAttribute('data-gotoEnglish')) {
           showViewByName(app.activeNavItem.getAttribute('data-gotoEnglish'));
@@ -182,7 +213,7 @@ var MODULE = (function () {
           document.body.scrollTop = 0;
           document.documentElement.scrollTop = 0;*/
         }
-        
+
         else if (app.activeNavItem.getAttribute('PartsOfSpeech')) {
           showViewByName(app.activeNavItem.getAttribute('PartsOfSpeech'));
           window.location.assign("../pages/parts_of_speech.html");
@@ -193,88 +224,12 @@ var MODULE = (function () {
           showViewByName(app.activeNavItem.getAttribute('data-gotoBiology'));
           window.location.assign("../pages/biology.html");
         }
-        
+
         else if (app.activeNavItem.getAttribute('data-gotoBiologyContent')) {
           showViewByName(app.activeNavItem.getAttribute('data-gotoBiologyContent'));
           window.location.assign("../pages/topicBiology.html");
         }
-        
-        // else if (app.activeNavItem.getAttribute('data-playAudio')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-playAudio'));
-        //   // console.log("this is the audio playing");
-        //   var ps_audio_intro = document.getElementById("ps_audio_intro");
-        //   var sdcard = navigator.getDeviceStorage("music");
-        //   request=sdcard.get("ps_audio_intro.mp3");
-        //   request.onsuccess = function () {
-        //     var file = request.result;
-        //     ps_audio_intro.src = window.URL.createObjectURL(file);
-        //     ps_audio_intro.play();
-        // }
-        //   // ps_audio_intro.play();
-        // }
 
-        // else if (app.activeNavItem.getAttribute('data-gotoSubject')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoSubject'));
-        //   gotoSubject();
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoHome')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoHome'));
-        //   window.location.assign("home.html");
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoWisdom')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoWisdom'));
-        //   window.location.assign("wisdom.html");
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoStudy')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoStudy'));
-        //   window.location.assign("study.html");
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoMoreDocs')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoMoreDocs'));
-        //   window.location.assign("readDocument.html");
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoReadDocument')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoReadDocument'));
-        //   document.getElementById("displayFrame").src="../mediaFiles/textFile.txt";
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoSubjectBiology')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoSubjectBiology'));
-        //   window.location.assign("subjectTopicVideo.html");
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoPlaySound')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoPlaySound'));
-        //   var firstAudio = document.getElementById("firstAudio");
-        //     firstAudio.play();
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoPause')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoPause'));
-        //   var firstAudio = document.getElementById("firstAudio");
-        //     firstAudio.pause();
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoStop')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoStop'));
-        //   var firstAudio = document.getElementById("firstAudio");
-        //     firstAudio.pause();
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoVideo')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoVideo'));
-        //   var firstVideo = document.getElementById("firstVideo");
-        //     firstVideo.play();
-        //
-        // }
-        // else if (app.activeNavItem.getAttribute('data-VideoPause')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-VideoPause'));
-        //   var firstVideo = document.getElementById("firstVideo");
-        //     firstVideo.pause();
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoReadDocumentOne')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoDocumentOne'));
-        //     document.getElementById("displayFrame").src="../mediaFiles/textFile.txt";
-        // }
-        // else if (app.activeNavItem.getAttribute('data-gotoReadDocumentTwo')) {
-        //   showViewByName(app.activeNavItem.getAttribute('data-gotoDocumentTwo'));
-        //     document.getElementById("displayFrame").src="../mediaFiles/textFile2.txt";
-        // }
 
         else if (app.activeNavItem.getAttribute('data-function')) {
           var call = app.activeNavItem.getAttribute('data-function');
@@ -296,49 +251,22 @@ var MODULE = (function () {
         } else {
           console.log('nothing to execute');
         }
-      } else { /* in some input field */
-        if (app.currentViewName == 'viewInputs') { /* do this in the inputs view */
-          app.updateInputs();
-        }
-        // return to legend when input confirmed to avoid triggering the input again
-        app.activeNavItem.focus();
-      }
+
       // update soft keys
-      softkeyBar();
+      // softkeyBar();
     }
   };
 
   function goBack() {
-    if (!app.isInputFocused() && !app.fullAdVisible && app.backEnabled) {
-      showView(app.prevViewId);
-      initView();
+    if (app.backEnabled) {
+      // console.log(app.prevViewId);
+      window.history.back();
+      // showView(app.prevViewId);
+      // initView();
+
     }
   };
 
-  // decide, what the 'soft key right' does
-  // function executeOption() {
-  //   if (!app.fullAdVisible) {
-  //     if (app.optionButtonAction == 'clear') { /* clear input */
-  //       if (app.activeNavItem.tagName.toLowerCase() == 'legend') { /* clear sibling if focused element is a legend */
-  //         app.activeNavItem.nextElementSibling.value = '';
-  //       } else { /* otherwise clear element itself */
-  //         app.activeNavItem.value = '';
-  //       }
-  //     } else if (app.optionButtonAction == 'something') {
-  //       console.log('option action triggered');
-  //     }
-  //   }
-  // }
-
-  app.isInputFocused = function () {
-    var activeTag = document.activeElement.tagName.toLowerCase();
-    var isInput = false;
-    // the focus switches to the 'body' element for system ui overlays
-    if (activeTag == 'input' || activeTag == 'select' || activeTag == 'text' || activeTag == 'textarea' || activeTag == 'body' || activeTag == 'html') {
-      isInput = true;
-    }
-    return isInput;
-  };
 
   // use the index to navigate to the view
   function showView(index) {
@@ -351,6 +279,8 @@ var MODULE = (function () {
     app.currentView.classList.add('active');
     app.currentViewID = index;
     app.currentViewName = app.currentView.getAttribute("id");
+    // console.log(app.currentViewID);
+    // console.log(app.currentViewName);
   }
 
   // use the view's name
@@ -381,15 +311,14 @@ var MODULE = (function () {
   }
 
   function initView() {
+    var currentlocation=window.location.pathname; //for assisting horizontal navigation and enter event procdeures
+  currentlocation=currentlocation.substring(currentlocation.lastIndexOf('/') + 1);
     app.currentView.scrollTo(0, 0);
     // enable options button
     // enable back button
-    if (app.currentViewName != 'viewMenu') {
-      app.backEnabled = true;
-      app.optionEnabled = true;
-    } else {
+    if (currentlocation == "home.html") {
       app.backEnabled = false;
-      app.optionEnabled = false;
+      // app.optionEnabled = true;
     }
 
     // focus first menu entry
@@ -399,7 +328,7 @@ var MODULE = (function () {
         app.updateNavItems();
         focusActiveButton(app.navItems[1]);
       }
-      
+
       else if(linkName == "home.html"){
         app.updateNavItems();
         focusActiveButton(app.navItems[0]);
@@ -408,7 +337,7 @@ var MODULE = (function () {
         app.updateNavItems();
         focusActiveButton(app.navItems[0]);
       }
-      
+
       else if(linkName == "topicEnglish.html"){
         app.updateNavItems();
         focusActiveButton(app.navItems[0]);
@@ -431,25 +360,30 @@ var MODULE = (function () {
     app.navItems = app.currentView.querySelectorAll('.navItem');
   }
 
+  app.updateNavItemsHorizontal = function (index) {
+    app.navItemsHorizontal = app.currentView.querySelectorAll('.navItemHorizontal');
+  }
+
   // set soft keys
   function softkeyBar() {
     if (app.backEnabled) {
-      app.backButton.innerHTML = "Back";
+      // app.backButton.innerHTML = "Back";
       window.history.back();
-    } else {
-      app.backButton.innerHTML = "";
     }
-    app.actionButton.innerHTML = "SELECT";
-    if (app.isInputFocused()) {
-      app.optionsButton.innerHTML = "Clear";
-      app.optionButtonAction = 'clear';
-    } else if (app.optionEnabled) {
-      app.optionsButton.innerHTML = "Option";
-      app.optionButtonAction = 'something';
-    } else {
-      app.optionsButton.innerHTML = "";
-      app.optionButtonAction = '';
-    }
+    // else {
+    //   app.backButton.innerHTML = "";
+    // }
+    // app.actionButton.innerHTML = "SELECT";
+    // if (app.isInputFocused()) {
+    //   app.optionsButton.innerHTML = "Clear";
+    //   // app.optionButtonAction = 'clear';
+    // } else if (app.optionEnabled) {
+    //   app.optionsButton.innerHTML = "Option";
+    //   app.optionButtonAction = 'something';
+    // } else {
+    //   app.optionsButton.innerHTML = "";
+    //   app.optionButtonAction = '';
+    // }
   };
 
   return app;
@@ -497,7 +431,7 @@ function carousel() {
 
   //homepage content
   $("#homePage_page").ready(function() {
-    
+
 
 
 
@@ -546,7 +480,7 @@ function carousel() {
                   <p id="turnWhite" style="font-size:12px;">Welcome Madalo</p>\
           </center>\
       </div>\
-      <div class="navItem row" tabindex="20" style="">\
+      <div class="navItem row"  style="">\
               <div style="width:100%;"><center>\
                       \
                       <img class="mySlides w3-animate-left" src="../img/insp_01.png" style="width:100%;height:100px;border-radius:6px;border:1px solid rgb(255,255,255);">\
@@ -562,7 +496,7 @@ function carousel() {
               </div>\
              \
 \
-      <div class="navItem row" tabindex="30" >\
+      <div class="navItem row"  >\
           <div class="col-1">\
                   <img src="../img/trianglePink.png" class="" id="trianglePink" style="height:14px;width:14px" />\
 \
