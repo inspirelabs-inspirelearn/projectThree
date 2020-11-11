@@ -101,7 +101,7 @@
   </head>
   <body style="background:rgb(255,255,255);" id="parts_of_speech">
 
-    <div data-role="page"  id="views" style="background:rgb(255,255,255);">
+    <div data-role="page" data_gotoBiology="Biology" id="views" style="background:rgb(255,255,255);">
 
 
         <div style="overflow: -moz-hidden-unscrollable;overflow: hidden;background:rgb(255,255,255);">
@@ -116,39 +116,42 @@
                                      <h4>1.0 THE BRAIN AND NERVOUS SYSTEM</h4>
                                      <center>
                                             <img src="../img/biologyOne.jpg" style="height:125px;width:90%;" />
-                                     </center> 
-                                     
+                                     </center>
+
                                 </div>
-                                <div class="navItem row white_background" data-function="changeColor"  tabindex="20" >
+                                <div class="navItem row white_background"  tabindex="20" >
                                     <div style="background:rgba(0, 0, 0, 0.19);padding:2px;">
-                                            <h4 style="font-size:16px;font-weight:bold;">1.1 Introduction</h4>    
-                                    </div>  
-                                    
+                                            <h4 style="font-size:16px;font-weight:bold;">1.1 Introduction</h4>
+                                    </div>
+
                                       <p>The brain controls what you think and feel, how you learn and remember, and the way
                                             you move and talk. But it also controls
                                             things you're less aware of — like the
                                             beating of your heart and the digestion of
                                             your food.</p>
                                 </div>
-                                <div class="navItem row" id="english_focus" data-playAudio="playAudio"  data-function="changeColor">
+                                <div class="navItem row" id="english_focus"  >
                                         <div style="width:100%;overflow:hidden;">
                                                 <div style="background:rgba(186, 170, 170, 0.253);padding:3px;">
                                                     <p style="font-size:13px;text-align:left">The brain <span style="float:right;color:rgb(0, 0, 0,0.5);">3:06</span></p>
-                                                    
+
                                                 </div>
-                                                <audio id="ns_intro" controls style="width:100%;float:left;">
-                                                        <source src="" type="audio/mp3">
-                                                  </audio>
+                                                <!-- <audio id="ns_intro" controls style="width:100%;float:left;">
+                                                        <source type="audio/mp3">
+                                                  </audio> -->
+                                                  <video id="ns_intro" controls style="width:100%;">
+                                                          <source  type="video/mp4">
+                                                  </video>
                                           </div>
 
                                 </div>
                                 <div ><center>
-                                    <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="30" id="ns_clickable_intro">Play</button>
+                                    <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="30" id="ns_intro_btn">Play</button>
                                 </center>
-                                    
+
                                 </div>
-                                <div class="navItem row white_background" data-function="changeColor"  tabindex="40" >
-                                        
+                                <div class="navItem row white_background"  tabindex="40" >
+
                                           <p>Think of the brain as a central computer
                                                 that controls all the body's functions. The
                                                 rest of the nervous system is like a network
@@ -159,18 +162,18 @@
                                                 contains threadlike nerves that branch out
                                                 to every organ and body part.</p>
                                     </div>
-                                    <div class="navItem row white_background" data-function="changeColor" tabindex="50">
+                                    <div class="navItem row white_background"  tabindex="50">
                                             <div style="background:rgba(0, 0, 0, 0.19);padding:2px;" >
-                                                    <h4 style="font-size:16px;font-weight:bold;">1.2 Sections of the Brain</h4>    
+                                                    <h4 style="font-size:16px;font-weight:bold;">1.2 Sections of the Brain</h4>
                                             </div>
                                             <!-- this is where the first video element will be -->
-                                            <!-- <video id="brain_sections" controls style="width:100%;">
-                                                    <source src="" type="video/mp4">
-                                            </video> -->
+                                            <video id="brain_sections" controls style="width:100%;">
+                                                    <source  type="video/mp4">
+                                            </video>
                                     </div>
                                     <div >
                                         <center>
-                                             <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="60" id="ns_clickable_body">Play</button>
+                                             <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="60" id="brain_sections_btn">Play</button>
                                         </center>
                                     </div>
                                     <br>
@@ -188,12 +191,12 @@
                                             structures under it.
                                     </div>
                                     <!-- this is where the second video element will be -->
-                                            <!-- <video id="the_forebrain" controls style="width:100%;">
+                                            <video id="the_forebrain" controls style="width:100%;">
                                                     <source src="" type="video/mp4">
-                                            </video> -->
+                                            </video>
                                             <div >
                                                     <center>
-                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="90" id="ns_clickable_body">Play</button>
+                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="90" id="the_forebrain_btn">Play</button>
                                                     </center>
                                             </div>
                                      <div class="navItem row white_background" tabindex="100">
@@ -223,12 +226,12 @@
                                             lobes.
                                      </div>
                                      <!-- this is where the third video element will be -->
-                                            <!-- <video id="the_cerebrum" controls style="width:100%;">
+                                            <video id="the_cerebrum" controls style="width:100%;">
                                                     <source src="" type="video/mp4">
-                                            </video> -->
+                                            </video>
                                             <div >
                                                     <center>
-                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="110" id="ns_cerebrum">Play</button>
+                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="110" id="the_cerebrum_btn">Play</button>
                                                     </center>
                                             </div>
                                             <div class="navItem row white_background" tabindex="120">
@@ -249,12 +252,12 @@
                                                         cord.</p>
                                             </div>
                                             <!-- this is where the fourth video element will be -->
-                                            <!-- <video id="the_midbrain" controls style="width:100%;">
+                                            <video id="the_midbrain" controls style="width:100%;">
                                                     <source src="" type="video/mp4">
-                                            </video> -->
+                                            </video>
                                             <div >
                                                     <center>
-                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="150" id="ns_cerebrum">Play</button>
+                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="150" id="the_midbrain_btn">Play</button>
                                                     </center>
                                             </div>
                                             <div class="navItem row white_background" tabindex="160">
@@ -265,19 +268,19 @@
                                                         brain" because it looks like a small
                                                         version of the cerebrum — is
                                                         responsible for balance, movement, and
-                                                        coordination.</p>    
+                                                        coordination.</p>
                                             </div>
                                             <!-- this is where the fith video element will be -->
-                                            <!-- <video id="the_hindbrain" controls style="width:100%;">
+                                            <video id="the_hindbrain" controls style="width:100%;">
                                                     <source src="" type="video/mp4">
-                                            </video> -->
+                                            </video>
                                             <div >
                                                     <center>
-                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="170" id="ns_hindbrain">Play</button>
+                                                         <button style="height:30px;border-radius:8px;border:1px solid rgba(0,0,0,0.2);width:80%;margin-left:17px;" type="button" class="navItem row" tabindex="170" id="the_hindbrain_btn">Play</button>
                                                     </center>
-                                            </div>        
+                                            </div>
                                  </div>
-                                
+
                     </div>
             </div>
 
