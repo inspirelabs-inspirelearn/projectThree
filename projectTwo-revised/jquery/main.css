@@ -34,6 +34,17 @@ button::-moz-focus-inner {
 }
 
 */
+.navItemHorizontal{
+  display: block;
+  float: left;
+  color: #323232;
+  background-color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 0 0.5% 0;
+}
+
 
 .navItem {
   display: block;
@@ -67,7 +78,7 @@ button::-moz-focus-inner {
 
 #views {
   height: 90%;
-  
+
 }
 
 
@@ -106,12 +117,24 @@ button::-moz-focus-inner {
   color: #323232;
   height: 1.4em;
 }
+.grid>.navItemHorizontal:not(.active){
+  background-color:#BAAAAA;
+}
+.grid>.navItemHorizontal:focus {
+  background: purple;
+
+}
 .grid>.navItem:not(.active){
   background-color:#BAAAAA;
 }
 .grid>.navItem:focus {
   background: purple;
-  
+
+}
+.view select:focus, .navItemHorizontal:focus, div.navDivs:focus {
+  background-color: purple;
+  border-color: rgb(255, 255, 255);
+  color: white;
 }
 .view select:focus, .navItem:focus, div.navDivs:focus {
   background-color: purple;
