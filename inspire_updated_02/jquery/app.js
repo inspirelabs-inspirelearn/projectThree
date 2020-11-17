@@ -385,7 +385,7 @@ var MODULE = (function () {
       }
       else if(linkName == "home.html"){
         app.updateNavItems();
-        focusActiveButton(app.navItems[40]);
+        focusActiveButton(app.navItems[10]);
       }
       else if(linkName == "features.html"){
         app.updateNavItems();
@@ -495,6 +495,10 @@ var MODULE = (function () {
       function loadHome() {
          $("#results").empty();
          $("#results").append(homeContent);
+           initView();
+           app.horizontalScroll =false;
+           app.navItemsHorizontal[0].style.background= '#BAAAAA';
+             app.currentNavId = 10;
          //carousel();
         //location.reload();
 
@@ -526,7 +530,7 @@ var MODULE = (function () {
             </center>\
         </div>\
         \
-        <div class="navItem row" tabindex="20" style="">\
+        <div class="navItem row"  style="">\
                 <div style="width:100%;"><center>\
                         \
                         <img class="mySlides w3-animate-left" src="../img/insp_01.png" style="width:100%;height:100px;border-radius:6px;border:1px solid rgb(255,255,255);">\
