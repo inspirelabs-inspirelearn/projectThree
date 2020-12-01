@@ -39,25 +39,17 @@ theprogressvalue = 100 / ObjectLength;
     document.getElementById("theProgress").style="width: "+theprogressvalue+"%";
 
   }
-  console.log("hello there!!! it is finally working");
+  loadHomeScreen();
+}
+loadDownloadPage(){
+             window.location.assign("pages/loadContent.html");
 }
 
 
-
 $("#indexBody").ready(function() {
-
-//   var firstVideo = document.getElementById("firstVideo");
-//   var sdcard = navigator.getDeviceStorage("videos");
-//   request=sdcard.get("videoone.mp4");
-//   request.onsuccess = function () {
-//     var file = request.result;
-//   document.getElementById('GFG').innerHTML = file.name;
-//     firstVideo.src = window.URL.createObjectURL(file);
-//     firstVideo.play();
-// }
-    // console.log("this is working");
-
-     loadHomeScreen();
+     
+     //loadHomeScreen();
+       loadDownloadPage();
 
 
 });
