@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <!-- main css -->
+     <link rel="stylesheet" href="jquery/w3.css">
+     <link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
     <title>Content loading page</title>
-    <script src="config.js"></script>
+    
 </head>
-<body>
-    <div >
-        <p id="demo"></p>
+<body >
+        <br>
+        <center>
+                        <div style="border:1px solid rgba(0,0,0,0.2);border-radius:8px;width:80%;">
+                                        <br>
+                                        <p id="para">We are about to download the necessary files into the app, click here to continue</p>
+                                        <button class="w3-btn w3-red" id="btnToLink" >continue</button>
+                                        <br><br>
+                                        <a id="theDownloadLink">link will download here</a>
+                                </div>                        
+        </center>
+        
+    <div id="displayProgress">
+            <center>
+                    <div class="w3-progress-container" style="background-color:rgb(102, 102, 102);height:14px;width:96%;margin-top:4px;">
+                            <div class="w3-progressbar" id="theProgress" style="background-color:rgb(134, 145, 230);width:0%;color:rgb(194, 18, 18);"></div>
+                    </div>
+            </center>
     </div>
-
+    
+    <div id="demo" >
+      
+    </div>
+    <script src="config.js"></script>
+    
     
 </body>
 </html>
