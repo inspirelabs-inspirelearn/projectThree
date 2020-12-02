@@ -7,7 +7,7 @@
   <li>Confirmed to work on phone</li>
   <li>Need to pass media file urls to download</li>
   <li>Removed config.js, and loadcontent.html</li>
-  <li>Uses inex.html to append content for Loadcontent.html</li>
+  <li>Uses index.html to append content for Loadcontent.html</li>
 </ul>
 
 <h3>inspire_updated_08</h3>
