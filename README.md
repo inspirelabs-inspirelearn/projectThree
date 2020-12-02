@@ -1,5 +1,5 @@
 # projectThree
-<h1>inspire_updated_08</h1>
-Working indexedDB
-Auto-updating current reading topic
+<h3>inspire_updated_08</h3>
+Working indexedDB <br>
+Auto-updating current reading topic <br>
 Auto checking new user
