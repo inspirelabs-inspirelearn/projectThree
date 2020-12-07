@@ -110,8 +110,8 @@ function initiateDownloads() { //Initialise download object and downloads conten
   console.log("Initiating downlaods!");
   var mediaContent = '{'+
   '"contentObject" : ['+
-    '{"mediaFile":"https://github.com/inspirelabs-inspirelearn/simpleSideProject/blob/main/audioTwo.mp3"},'+
-    '{"mediaFile":"https://github.com/inspirelabs-inspirelearn/simpleSideProject/blob/main/videoOne.mp4"}'+
+    '{"mediaFile":"https://inspirelabs-inspirelearn.github.io/externalSourcer/mediaContent/audioTwo.mp3"},'+
+    '{"mediaFile":"https://inspirelabs-inspirelearn.github.io/externalSourcer/mediaContent/videoOne.mp4"}'+
   ']'+
 '}';
 
