@@ -1,5 +1,12 @@
 # projectThree
 
+<h3>inspire_updated_10</h3>
+<ul>
+  <li>updated conted in content.js </li>
+  <li>scroll with keys like 4 and 6 </li>
+  <li>functions emptying and appending for content access on page</li>
+</ul>
+
 <h3>inspire_updated_09</h3>
 <ul>
   <li>Integrated IndexedDB and Autodownload</li>
@@ -17,9 +24,3 @@
   <li>Auto checking new user</li>
 </ul>
 
-<h3>inspire_updated_10</h3>
-<ul>
-  <li>updated conted in content.js </li>
-  <li>scroll with keys like 4 and 6 </li>
-  <li>functions emptying and appending for content access on page</li>
-</ul>
