@@ -24,3 +24,10 @@
   <li>Auto checking new user</li>
 </ul>
 
+<h3>inspire_updated_10</h3>
+<ul>
+  <li>left and right key navigation on reading content </li>
+  <li>dynamic loading of content from array data structures</li>
+</ul>
+
+
