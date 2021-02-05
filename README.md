@@ -1,6 +1,6 @@
 # projectThree
 
-<h3>inspire_updated_10</h3>
+<h3>inspire_updated_10_new</h3>
 <ul>
   <li>updated conted in content.js </li>
   <li>scroll with keys like 4 and 6 </li>
