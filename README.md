@@ -28,6 +28,7 @@
 <ul>
   <li>left and right key navigation on reading content </li>
   <li>dynamic loading of content from array data structures</li>
+  <li>updated styling of page to match uniform design of entire app</li>
 </ul>
 
 
